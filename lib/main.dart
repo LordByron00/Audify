@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musitify/audio.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AudioOnlyYouTube(),
+      home: YouTubeAudioPlayer(),
     );
   }
 }
@@ -28,12 +29,19 @@ class _AudioOnlyYouTubeState extends State<AudioOnlyYouTube> {
   @override
   void initState() {
     super.initState();
-    _controller = YoutubePlayerController(
-      initialVideoId: 'M7lc1UVf-VE', // Replace with your YouTube video ID
+
+    // If the requirement is just to play a single video.
+    _controller = YoutubePlayerController.fromVideoId(
+      videoId: 'fQ5ZfDcmP3o',
+      autoPlay: true,
       params: const YoutubePlayerParams(
-        autoPlay: true,
-        mute: false,
-        showFullscreenButton: false,
+        enableKeyboard: true,
+        showFullscreenButton: true,
+        showVideoAnnotations: false,
+        enableJavaScript: true,
+        strictRelatedVideos: true,
+        playsInline: true,
+        interfaceLanguage: 'en',
       ),
     );
   }
@@ -54,25 +62,31 @@ class _AudioOnlyYouTubeState extends State<AudioOnlyYouTube> {
       body: Column(
         children: [
           // Hidden YouTube Player
-          Opacity(
-            opacity: 0.0, // Makes the player invisible
+          SizedBox(
+            height: 1, // Minimal height
             child: YoutubePlayer(
               controller: _controller,
               aspectRatio: 16 / 9,
             ),
           ),
           const Spacer(),
-          ElevatedButton(
-            onPressed: () {
-              _controller.play();
-            },
-            child: const Text('Play Audio'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _controller.pause();
-            },
-            child: const Text('Pause Audio'),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  print('Triggering play');
+                  _controller.playVideo();
+                },
+                child: const Text('Play Audio'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  print('Triggering pause');
+                  _controller.pauseVideo();
+                },
+                child: const Text('Pause Audio'),
+              ),
+            ],
           ),
           const Spacer(),
         ],
