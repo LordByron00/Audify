@@ -9,6 +9,9 @@ class YouTubeAudioPlayer extends StatefulWidget {
 }
 
 class _YouTubeAudioPlayerState extends State<YouTubeAudioPlayer> {
+  //hide this
+  final String apiKey =
+      'AIzaSyChK-uhlHk5iLeFuKjsedCxifjDIydawTE'; // Replace with your API key
   final _audioPlayer = AudioPlayer();
   String audioUrl = "";
   final TextEditingController _youtubeUrlController = TextEditingController();

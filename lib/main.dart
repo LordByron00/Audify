@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musitify/audio.dart';
+import 'package:musitify/search.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: YouTubeAudioPlayer(),
+      home: YouTubeSearchScreen(),
     );
   }
 }
